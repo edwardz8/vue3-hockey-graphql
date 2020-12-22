@@ -1,0 +1,9 @@
+mutation pitcher($playerid: ID!) {
+  pitcher(id: $playerid) {
+    playerid
+    player
+    wins
+    team
+    strikeouts
+  }
+}

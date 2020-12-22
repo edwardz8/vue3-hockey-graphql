@@ -2,11 +2,17 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    pitcherList: [],
   },
-  mutations: {
+  getters: {
+    pitchers: (state) => {
+      return state.pitcherList;
+    },
+    pitcher: (state) => (id) => {
+      return state.pitcherList.find((pitcher) => pitcher.playerid === id);
+    }
   },
-  actions: {
-  },
-  modules: {
-  }
+  mutations: {},
+  actions: {},
+  modules: {}
 })
