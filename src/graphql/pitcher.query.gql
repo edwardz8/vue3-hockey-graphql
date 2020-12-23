@@ -1,5 +1,5 @@
-mutation pitcher($playerid: ID!) {
-  pitcher(id: $playerid) {
+query pitcher ($playerid: ID!) {
+  pitcher (playerid: $playerid) {
     playerid
     player
     wins

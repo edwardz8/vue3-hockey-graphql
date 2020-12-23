@@ -1,13 +1,13 @@
 <template>
-  <div v-if="pitcher">
-  <h1>{{ pitcher.player }}</h1>
-  <h1>{{ pitcher.wins }}</h1>
+  <div>
+  <h1>{{ pitcher.pitcher.player }}</h1>
+  <h1>{{ pitcher.pitcher.wins }}</h1>
   </div>
 </template>
 
 <script>
 import { computed, watchEffect } from "vue";
-import { useQuery } from '@vue/apollo-composable'
+import { useQuery, useResult } from '@vue/apollo-composable'
 import gql from 'graphql-tag';
 
 export default {
@@ -20,7 +20,7 @@ export default {
       return store.getters.pitcher(Number(props.playerId));
     }); */
 
-    const { pitcher } = useQuery(gql`
+    const { result } = useQuery(gql`
         query pitcher ($playerid: ID!) {
           pitcher (playerid: $playerid) {
             player
@@ -33,12 +33,17 @@ export default {
       playerid: props.playerid
     }))
 
+    // const { result } = useQuery(pitcherQuery);
+
+    const pitcher = useResult(result, null, (data) => data.pitcher)
+
     watchEffect(() => {
-      console.log(pitcher.value) // undefined
+      console.log(result.value) // undefined
     })
 
     return {
-      pitcher 
+      result,
+      pitcher
     };
   },
 };
