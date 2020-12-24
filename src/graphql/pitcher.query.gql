@@ -1,9 +1,8 @@
-query pitcher ($playerid: ID!) {
-  pitcher (playerid: $playerid) {
-    playerid
+query pitcher($playerid: ID!) {
+  pitcher(playerid: $playerid) {
     player
-    wins
+    playerid
     team
-    strikeouts
+    wins
   }
 }

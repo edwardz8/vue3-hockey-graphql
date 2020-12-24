@@ -12,8 +12,12 @@ const routes = [
     path: "/player/:id",
     name: "PlayerDetails",
     props: (route) => {
+      const playerid = Number.parseInt(route.params.id)
+      if (Number.isNaN(playerid)) {
+        return 0
+      }
       return {
-        playerid: route.params.id
+        playerid
       };
     },
     component: PlayerDetails
