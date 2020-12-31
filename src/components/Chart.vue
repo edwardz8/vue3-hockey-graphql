@@ -6,6 +6,7 @@
     :redrawOnUpdate="true"
     :oneToOneUpdate="false"
     :animateOnUpdate="true"
+    @rendered="onRender"
   />
   </div>
 </template>
@@ -52,7 +53,6 @@ export default {
     });
 
     const chartData = computed(() => {
-      if (pitcher) {
         return {
           chart: {
             polar: true,
@@ -78,7 +78,7 @@ export default {
           plotOptions: {
             series: {
               pointStart: 0,
-              pointInterval: 45,
+              pointInterval: 20,
             },
             column: {
               pointPadding: 0,
@@ -94,7 +94,7 @@ export default {
               pointPlacement: "between",
             },
             {
-              type: "line",
+              type: "area",
               name: "Innings Pitched",
               data: pitcher.innings_pitched,
             },
@@ -105,12 +105,16 @@ export default {
             },
           ],
         };
-      }
     });
+
+    const onRender = () => {
+      console.log('Chart rendered');
+    };
 
     return {
       result,
       pitcher,
+      onRender,
       chartData,
     };
   },
