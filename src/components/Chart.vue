@@ -1,23 +1,24 @@
 <template>
-<div v-if="chartData">
-  <vue-highcharts
-    type="chart"
-    :options="chartData"
-    :redrawOnUpdate="true"
-    :oneToOneUpdate="false"
-    :animateOnUpdate="true"
-    @rendered="onRender"
-  />
+  <div>
+    <vue-highcharts
+      type="chart"
+      :options="chartData"
+      :redrawOnUpdate="true"
+      :oneToOneUpdate="false"
+      :animateOnUpdate="true"
+      @rendered="onRender"
+    />
   </div>
 </template>
 
 <script>
-import { computed, watch } from "vue";
+import { computed, watchEffect } from "vue";
 import { useQuery, useResult } from "@vue/apollo-composable";
 import gql from "graphql-tag";
 import VueHighcharts from "vue3-highcharts";
 import HighCharts from "highcharts";
 import HighchartsMore from "highcharts/highcharts-more";
+import { onBeforeMount } from 'vue-demi';
 
 HighchartsMore(HighCharts);
 
@@ -27,32 +28,37 @@ export default {
     VueHighcharts,
   },
   props: {
-    playerid: { type: Number },
+    id: { type: Number },
+    pitcher: {
+      type: Object,
+    },
   },
   setup(props) {
     const { result } = useQuery(
       gql`
-        query pitcher($playerid: Int!) {
-          pitcher(playerid: $playerid) {
+        query pitcher($id: Int!) {
+          pitcher(id: $id) {
             player
-            playerid
+            id
             team
             innings_pitched
             strikeouts
             wins
+            era
+            war
+            home_runs_allowed
+            fip
           }
         }
       `,
-      props
+      props,
+      {}
     );
 
     const pitcher = useResult(result, null, (data) => data.pitcher);
 
-    watch(() => {
-      console.log(result.value); // undefined
-    });
-
     const chartData = computed(() => {
+      if (pitcher.value) {
         return {
           chart: {
             polar: true,
@@ -90,29 +96,42 @@ export default {
             {
               type: "column",
               name: "Wins",
-              data: pitcher.wins,
+              data: pitcher.value.wins,
               pointPlacement: "between",
             },
             {
-              type: "area",
+              type: "line",
               name: "Innings Pitched",
-              data: pitcher.innings_pitched,
+              data: pitcher.value.innings_pitched,
             },
             {
               type: "area",
               name: "Strikeouts",
-              data: pitcher.strikeouts,
+              data: pitcher.value.strikeouts,
             },
           ],
         };
+      }
     });
 
     const onRender = () => {
-      console.log('Chart rendered');
+      console.log("Chart rendered", result.value);
+      console.log("Chart rendered", pitcher.value);
+      chartData
     };
 
+    onBeforeMount(() => {
+      console.log(result.value, 'result value from chart');
+      console.log(pitcher.value.innings_pitched, 'innings_pitched from chart')
+      chartData
+    });
+
+    watchEffect(() => {
+      // console.log(pitcher.value); // undefined
+      chartData
+    });
+
     return {
-      result,
       pitcher,
       onRender,
       chartData,

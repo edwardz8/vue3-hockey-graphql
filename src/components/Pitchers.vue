@@ -32,7 +32,7 @@
                     scope="col"
                     class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Position
+                    ADP (Fantasy)
                   </th>
                   <th
                     scope="col"
@@ -46,6 +46,12 @@
                   >
                     K
                   </th>
+                   <th
+                    scope="col"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Saves
+                  </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -55,9 +61,9 @@
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                <tr v-for="pitcher in pitchers" :key="pitcher.playerid">
+                <tr v-for="pitcher in pitchers" :key="pitcher.id">
                   <router-link
-                    :to="{ name: 'PlayerDetails', params: { id: pitcher.playerid }}"
+                    :to="{ name: 'PlayerDetails', params: { id: pitcher.id }}"
                   >
                     <td class="px-4 py-4 whitespace-nowrap">
                       <div class="flex items-center">
@@ -83,13 +89,16 @@
                     </span>
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ pitcher.positions }}
+                    {{ pitcher.adp }}
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                     {{ pitcher.wins }}
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                     {{ pitcher.strikeouts }}
+                  </td>
+                  <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ pitcher.saves }}
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                     {{ pitcher.innings_pitched }}
@@ -108,14 +117,26 @@
 import { useQuery, useResult } from "@vue/apollo-composable";
 import pitchersQuery from "../graphql/pitchers.query.gql";
 import methods from "../methods";
+import { onBeforeMount } from 'vue-demi';
+// import { computed, ref, reactive } from 'vue'
 
 export default {
   setup() {
-    const { result } = useQuery(pitchersQuery);
+    const { result, loading } = useQuery(pitchersQuery);
     const pitchers = useResult(result, null, (data) => data.pitchers);
+
+    /* const sortedPitchers = computed(() => result.value.pitchers.sort(
+      (a, b) => a.adp.localeCompare(b.adp)
+    )) */
+
+    onBeforeMount(() => {
+         console.log(result.value)
+      }) 
 
     return {
       pitchers,
+      loading,
+      // sortedPitchers
     };
   },
   methods: {

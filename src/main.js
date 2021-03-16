@@ -4,32 +4,20 @@ import router from './router'
 import store from './store'
 import './assets/styles/tailwind.css'
 import './index.css'
-
 import { DefaultApolloClient } from '@vue/apollo-composable'
-import { ApolloClient, InMemoryCache } from '@apollo/client/core'
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
+
+const httpLink = createHttpLink({
+    uri: 'http://localhost:4000/graphql'
+})
+
+const cache = new InMemoryCache()
 
 const apolloClient = new ApolloClient({
-    uri: 'http://localhost:4000/graphql',
-    cache: new InMemoryCache()
+    link: httpLink,
+    cache
   })
-  
-/*   const query = gql`
-      query {
-          pitchers {
-              player
-              team
-              strikeouts
-              wins
-              innings_pitched
-          }
-      }
-  `
-  
-  apolloClient.query({
-      query
-  })
-      .then(res => console.log(res)) */
-  
+
   createApp({
       setup() {
           provide(DefaultApolloClient, apolloClient)

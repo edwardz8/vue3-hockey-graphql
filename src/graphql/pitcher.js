@@ -1,5 +1,8 @@
-query pitchers {
-  pitchers {
+import gql from 'graphql-tag'
+
+const pitcherQuery = gql`
+    query pitcher($id: ID!) {
+  pitcher(id: $id) {
     player
     id
     team
@@ -19,3 +22,6 @@ query pitchers {
     adp
   }
 }
+`
+
+export default pitcherQuery

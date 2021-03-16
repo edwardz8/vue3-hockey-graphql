@@ -37,49 +37,71 @@
       </div>
     </div>
 
-    <chart />
-
+    <div class="chart-container">
+      <div v-if="loading">Loading...</div>
+      <div v-else-if="result && result.value">
+        <chart />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { computed, watch } from "vue";
 import { useQuery, useResult } from "@vue/apollo-composable";
-import gql from "graphql-tag";
 import methods from "../methods";
-import chart from './Chart.vue'
+import gql from "graphql-tag";
+import { watchEffect, computed } from "vue";
+import chart from "./Chart.vue";
 
 export default {
   name: "PlayerDetails",
   components: { chart },
   props: {
-    playerid: { type: Number },
+    id: { type: Number },
   },
   setup(props) {
-    const { result } = useQuery(
+    const { result, loading, error } = useQuery(
       gql`
-        query pitcher($playerid: Int!) {
-          pitcher(playerid: $playerid) {
+        query pitcher($id: Int!) {
+          pitcher(id: $id) {
             player
-            playerid
+            id
             team
             innings_pitched
+            strikeouts
             wins
+            era 
+            war 
+            home_runs_allowed 
+            fip
           }
         }
       `,
-      props
+      props, {
+      }
     );
-
     const pitcher = useResult(result, null, (data) => data.pitcher);
 
-    watch(() => {
-      console.log(result.value); // undefined
+    watchEffect(() => {
+      console.log(result.value, "result value"); // use this result?
+      console.log(pitcher.value, "pitcher value"); // null initially 
     });
 
+    /* onMounted(() => {
+       console.log('mount')
+       result, pitcher
+     })
+ 
+     onBeforeUnmount(() => {
+       console.log('unmount')
+       result, pitcher
+     }) */
+
     return {
-      result,
       pitcher,
+      loading,
+      error,
+      result
     };
   },
   methods: {
