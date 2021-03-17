@@ -7,16 +7,16 @@
         <p
           class="logo xl:float-left lg:float-left xl:mr-4 lg:mr-4 md:mr-4 md:my-2 xl:my-2 lg:my-2"
         >
-          <i :class="matchTeamLogo(pitcher.team)"></i>
+          <!-- <i :class="matchTeamLogo(pitcher.team)"></i> -->
         </p>
-        <div class="text-center sm:text-left sm:flex-grow">
+        <div class="text-center sm:text-left sm:flex-grow" v-if="result && result.value">
           <div class="mb-4">
             <p class="font-sans text-xl leading-tight mb-2">{{ pitcher.player }}</p>
             <p class="font-sans text-sm leading-tight text-grey-dark mb-2">
               {{ pitcher.team }}
             </p>
             <p class="font-sans text-sm leading-tight">
-              Wins: {{ pitcher.wins }} - Innings: {{ pitcher.innings_pitched }}
+              Wins: {{ result.wins }} - Innings: {{ pitcher.innings_pitched }}
             </p>
           </div>
           <div class="sm:flex sm:items-center flex-wrap">
@@ -39,9 +39,9 @@
 
     <div class="chart-container">
       <div v-if="loading">Loading...</div>
-      <div v-else-if="result && result.value">
+      <!-- <div v-else-if="result && result.value">
         <chart />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -50,20 +50,20 @@
 import { useQuery, useResult } from "@vue/apollo-composable";
 import methods from "../methods";
 import gql from "graphql-tag";
-import { watchEffect, computed } from "vue";
-import chart from "./Chart.vue";
+import { watchEffect } from "vue";
+// import chart from "./Chart.vue";
 
 export default {
   name: "PlayerDetails",
-  components: { chart },
+  // components: { chart },
   props: {
     id: { type: Number },
   },
   setup(props) {
     const { result, loading, error } = useQuery(
       gql`
-        query pitcher($id: Int!) {
-          pitcher(id: $id) {
+        query pitcher ($id: ID!) {
+          pitchers_by_pk (id: $id) {
             player
             id
             team
@@ -77,28 +77,18 @@ export default {
           }
         }
       `,
-      props, {
-      }
+      props
     );
-    const pitcher = useResult(result, null, (data) => data.pitcher);
+    const pitcher = useResult(result, null, (data) => data.pitchers);
 
     watchEffect(() => {
       console.log(result.value, "result value"); // use this result?
       console.log(pitcher.value, "pitcher value"); // null initially 
     });
 
-    /* onMounted(() => {
-       console.log('mount')
-       result, pitcher
-     })
- 
-     onBeforeUnmount(() => {
-       console.log('unmount')
-       result, pitcher
-     }) */
-
     return {
       pitcher,
+      result,
       loading,
       error,
       result

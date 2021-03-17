@@ -117,31 +117,30 @@
 import { useQuery, useResult } from "@vue/apollo-composable";
 import pitchersQuery from "../graphql/pitchers.query.gql";
 import methods from "../methods";
-import { onBeforeMount } from 'vue-demi';
-// import { computed, ref, reactive } from 'vue'
+import { watch } from 'vue'
 
 export default {
   setup() {
     const { result, loading } = useQuery(pitchersQuery);
     const pitchers = useResult(result, null, (data) => data.pitchers);
 
-    /* const sortedPitchers = computed(() => result.value.pitchers.sort(
-      (a, b) => a.adp.localeCompare(b.adp)
-    )) */
-
-    onBeforeMount(() => {
-         console.log(result.value)
-      }) 
+    watch(() => {
+         console.log(pitchers.value)
+      })
 
     return {
       pitchers,
       loading,
-      // sortedPitchers
     };
   },
   methods: {
     ...methods,
   },
+/*    apollo: {
+    allPitchers: {
+      pitchers
+    }
+  } */
 };
 </script>
 

@@ -1,6 +1,6 @@
 <script>
 import { PolarArea, mixins } from "vue-chartjs";
-
+// not using this component atm
 export default {
   name: "chart",
   extends: PolarArea,
