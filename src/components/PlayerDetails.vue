@@ -79,7 +79,7 @@ export default {
       `,
       props
     );
-    const pitcher = useResult(result, null, (data) => data.pitchers);
+    const pitcher = useResult(result, null, (data) => data.pitcher);
 
     watchEffect(() => {
       console.log(result.value, "result value"); // use this result?
