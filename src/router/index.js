@@ -1,9 +1,14 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory
+} from 'vue-router'
 import Home from '../views/Home.vue'
 import PlayerDetails from "../components/PlayerDetails.vue"
+import Blog from '@/views/Blog.vue'
+import NotFound from '../views/NotFound.vue'
+import Post from '@/views/Post.vue'
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'Home',
     component: Home
@@ -23,10 +28,21 @@ const routes = [
     component: PlayerDetails
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/articles',
+    component: Blog,
+    meta: {
+      title: 'Posts'
+    }
+  },
+  {
+    path: "/post/:slug",
+    component: Post,
+    name: "Post",
+  },
+  {
+    path: '/:path(.*)',
+    component: NotFound
+  },
 ]
 
 const router = createRouter({

@@ -30,7 +30,6 @@ const httpLink = createHttpLink({
     headers: getHeaders()
 })
 
-
 const apolloClient = new ApolloClient({
     link: httpLink,
     // link: new HttpLink({ uri: BASEBALL_API }),
