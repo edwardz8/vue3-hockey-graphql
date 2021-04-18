@@ -11,7 +11,6 @@ import post from './post'
 import author from './author'
 import rating from './rating'
 import player from './player'
-import comment from './comment'
 
 export default createSchema({
   // We name our schema
@@ -25,7 +24,6 @@ export default createSchema({
     author,
     category,
     rating,
-    comment,
     player,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
