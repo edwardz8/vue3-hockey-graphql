@@ -38,6 +38,16 @@ const routes = [{
     path: "/post/:slug",
     component: Post,
     name: "Post",
+    // props: route => ({ id: route.params.id })
+    props: (route) => {
+      const id = Number.parseInt(route.params.id)
+      if (Number.isNaN(id)) {
+        return 0
+      }
+      return {
+        id
+      };
+    },
   },
   {
     path: '/:path(.*)',

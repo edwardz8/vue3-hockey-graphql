@@ -61,25 +61,22 @@
           /></label>
         </div>
 
-      <div class="comments-section">
-        <div class="content">
-          <label class="font-medium text-xl"
-            >Comments:
-            <textarea
-              class="block border-2 border-green-300"
-              name="comment"
-              cols="40"
-              rows="3"
-            />
-          </label>
-        </div>
-        <div>
-          <button
-            class="bg-green-300 px-3 text-lg font-bold"
-            type="submit"
-          >
-            Submit
-          </button>
+        <div class="comments-section">
+          <div class="content">
+            <label class="font-medium text-xl"
+              >Comments:
+              <textarea
+                class="block border-2 border-green-300"
+                name="comment"
+                cols="40"
+                rows="3"
+              />
+            </label>
+          </div>
+          <div>
+            <button class="bg-green-300 px-3 text-lg font-bold" type="submit">
+              Submit
+            </button>
           </div>
         </div>
       </form>
@@ -115,7 +112,7 @@ const imageBuilder = imageUrlBuilder(sanity);
 export default {
   name: "Post",
   components: { SanityBlocks },
-  setup({root}) {
+  setup(props) {
     onMounted(() => {
       fetchPost();
     });
@@ -123,19 +120,20 @@ export default {
     let blocks = ref([]);
 
     const {
-      params: { slug },
+      params: { id },
     } = useRoute();
 
     const groqPostQuery = `*[ _type=='post' && slug.current == $slug] {
-      "player":player->name,
         _id,
         title,
+        text,
         slug,
         body, 
+      "player":player->name,
       "image": mainImage{
         asset->{
         _id,
-        url,
+        url
       }
       },
       "ratings": *[ _type == "rating" && references(^._id) ]{ stars, comment, _id}
@@ -145,10 +143,10 @@ export default {
       `;
 
     function fetchPost() {
-      sanity.fetch(groqPostQuery, /* { slug: root.$route.params.slug } */).then(
+      sanity.fetch(groqPostQuery, { slug: route.params.slug }).then(
         (post) => {
           post.value = post;
-          blocks = post.body
+          blocks = post.body;
         },
         (error) => {
           this.error = error;
