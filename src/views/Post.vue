@@ -120,7 +120,7 @@ export default {
     let blocks = ref([]);
 
     const {
-      params: { id },
+      params: { slug },
     } = useRoute();
 
     const groqPostQuery = `*[ _type=='post' && slug.current == $slug] {
@@ -143,7 +143,8 @@ export default {
       `;
 
     function fetchPost() {
-      sanity.fetch(groqPostQuery, { slug: route.params.slug }).then(
+      sanity.fetch(groqPostQuery, { slug }).then(
+      /* sanity.fetch(groqPostQuery, { slug: router.params.slug }).then( */
         (post) => {
           post.value = post;
           blocks = post.body;

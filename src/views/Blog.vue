@@ -6,9 +6,9 @@
       <div class="container">
         <div class="content" v-if="posts">
           <div v-for="post in posts" class="post-item" :key="post._id">
-            <router-link :to="`/post/${post.slug.current}`">
+            <router-link :to="{name: 'Post', params: { slug } }">
               <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                <img 
+                <img
                   class="w-full"
                   :src="imageUrlFor(post.image)"
                   alt="Sunset in the mountains"
