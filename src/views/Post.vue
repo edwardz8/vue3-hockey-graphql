@@ -5,7 +5,7 @@
       <img v-if="post.image" :src="imageUrlFor(post.image).width(440)" />
       <h6>By: {{ post.name }}</h6>
       <h6>{{ post.player }}</h6>
-      <SanityBlocks :blocks="blocks" />
+      <SanityBlocks :blocks="blocks" :serializers="serializers" />
 
       <form name="rating" method="POST">
         <input type="hidden" name="form-name" value="rating" />
@@ -106,6 +106,7 @@ import sanity from "../client";
 import imageUrlBuilder from "@sanity/image-url";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+// import PostLayout from './'
 
 const imageBuilder = imageUrlBuilder(sanity);
 
@@ -116,8 +117,13 @@ export default {
     onMounted(() => {
       fetchPost();
     });
-    let post = ref([]);
-    let blocks = ref([]);
+    const post = ref([]);
+    const blocks = ref([]);
+    const serializers = {
+      /* type: {
+        custom: PostLayout
+      } */
+    }
 
     const {
       params: { slug },
@@ -163,6 +169,7 @@ export default {
       post,
       blocks,
       imageUrlFor,
+      serializers
     };
   },
 };
