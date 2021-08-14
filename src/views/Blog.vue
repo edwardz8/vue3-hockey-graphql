@@ -2,7 +2,7 @@
   <div class="articles">
     <h1>fungo betting and dfs articles</h1>
     <div class="posts">
-      <!-- <div class="loading" v-if="loading">Loading...</div> -->
+      <!--<div class="loading" v-if="loading">Loading...</div>-->
       <div class="container">
         <div class="content" v-if="posts">
           <div v-for="post in posts" class="post-item" :key="post._id">

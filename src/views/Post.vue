@@ -3,7 +3,7 @@
     <div class="content" v-if="post">
       <h1>{{ post.title }}</h1>
       <img v-if="post.image" :src="imageUrlFor(post.image).width(440)" />
-      <!-- <h6>Provided by: {{ post.name }}</h6> -->
+      <!--<h6>Provided by: {{ post.name }}</h6>-->
       <SanityBlocks :blocks="blocks" :serializers="serializers" />
     </div>
   </div>

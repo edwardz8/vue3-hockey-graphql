@@ -38,7 +38,7 @@ const routes = [{
     path: "/blog/:slug",
     component: Post,
     name: "Post",
-    // props: route => ({ id: route.params.id })
+    //props: route => ({ id: route.params.id })
   },
   {
     path: '/:path(.*)',
