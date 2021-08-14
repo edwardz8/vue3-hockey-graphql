@@ -4,7 +4,7 @@
       <h1>{{ post.title }}</h1>
       <img v-if="post.image" :src="imageUrlFor(post.image).width(440)" />
       <h6>Provided by: {{ post.name }}</h6>
-      <SanityBlocks :blocks="blocks" :serializers="serializers" />
+      <SanityBlocks :blocks="blocks" />
     </div>
   </div>
 </template>
@@ -27,13 +27,13 @@ export default {
     });
     const post = ref([]);
     let blocks = [];
-    let serializers = {};
+    // let serializers = {};
 
     const {
       params: { slug },
     } = useRoute();
 
-    const groqPostQuery = `*[_type=='post' && slug == '${slug}'] {
+    const groqPostQuery = `*[slug.current == '${slug}'][0] {
         _id,
         title,
         slug,
@@ -69,7 +69,7 @@ export default {
       post,
       blocks,
       imageUrlFor,
-      serializers,
+      // serializers,
     };
   },
 };
