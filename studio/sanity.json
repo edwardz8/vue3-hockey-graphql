@@ -1,10 +1,10 @@
 {
   "root": true,
   "project": {
-    "name": "vue-fungo-sanity-studio"
+    "name": "blog"
   },
   "api": {
-    "projectId": "q8mztlyl",
+    "projectId": "xvwqj5i2",
     "dataset": "production"
   },
   "plugins": [

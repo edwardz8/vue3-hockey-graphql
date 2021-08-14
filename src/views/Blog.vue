@@ -1,18 +1,15 @@
 <template>
   <div class="articles">
-    <h1>fungo betting and dfs boards</h1>
+    <h1>fungo betting and dfs articles</h1>
     <div class="posts">
       <!-- <div class="loading" v-if="loading">Loading...</div> -->
       <div class="container">
         <div class="content" v-if="posts">
           <div v-for="post in posts" class="post-item" :key="post._id">
-            <router-link :to="{name: 'Post', params: { slug } }">
+            <!-- <router-link :to="{name: 'Post', params: { slug } }"> -->
+            <router-link :to="`/blog/${post.slug.current}`">
               <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                <img
-                  class="w-full"
-                  :src="imageUrlFor(post.image)"
-                  alt="Sunset in the mountains"
-                />
+                <img class="w-full" :src="imageUrlFor(post.image)" alt="post image" />
                 <div class="px-6 py-4">
                   <div class="font-bold text-xl mb-2">{{ post.title }}</div>
                   <p class="text-gray-700 text-base">
@@ -22,11 +19,11 @@
                 <div class="px-6 pt-4 pb-2">
                   <span
                     class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                    >#mlbbetting</span
+                    >#nflbetting</span
                   >
                   <span
                     class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                    >#mlbdfs</span
+                    >#nfldfs</span
                   >
                 </div>
               </div>
@@ -51,9 +48,10 @@ export default {
     onMounted(() => {
       fetchData();
     });
+    
+    let posts = ref([]);
 
     const query = `*[ _type == 'post']{
-        "player":player->name,
         _id,
         title,
         slug,
@@ -65,9 +63,6 @@ export default {
       }
     },
 }[0...50]`;
-
-    let posts = ref([]);
-    let post = ref([])
 
     const imageUrlFor = (source) => {
       return imageBuilder.image(source);
@@ -86,7 +81,6 @@ export default {
 
     return {
       posts,
-      post,
       imageUrlFor,
     };
   },

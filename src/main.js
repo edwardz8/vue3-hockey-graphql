@@ -6,6 +6,7 @@ import '../public/assets/styles/tailwind.css'
 import './index.css'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
+// import { SanityBlocks } from 'sanity-blocks-vue-component';
 
 // const cache = new InMemoryCache()
 

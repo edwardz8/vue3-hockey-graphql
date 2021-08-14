@@ -1,101 +1,10 @@
 <template>
   <div class="container-fluid">
-    <div class="content">
+    <div class="content" v-if="post">
       <h1>{{ post.title }}</h1>
       <img v-if="post.image" :src="imageUrlFor(post.image).width(440)" />
-      <h6>By: {{ post.name }}</h6>
-      <h6>{{ post.player }}</h6>
+      <!-- <h6>Provided by: {{ post.name }}</h6> -->
       <SanityBlocks :blocks="blocks" :serializers="serializers" />
-
-      <form name="rating" method="POST">
-        <input type="hidden" name="form-name" value="rating" />
-        <input type="hidden" name="album" v-model="post._id" />
-        <div class="my-7">
-          <div class="font-medium text-xl">
-            Rating: <span class="text-red-700">*</span>
-          </div>
-          <label for="1star" class="font-medium"
-            >1<input
-              class="ml-2 mr-6"
-              type="radio"
-              name="stars"
-              value="1"
-              id="1star"
-              required
-          /></label>
-          <label for="2stars" class="font-medium"
-            >2<input
-              class="ml-2 mr-6"
-              type="radio"
-              name="stars"
-              value="2"
-              id="2stars"
-              required
-          /></label>
-          <label for="3stars" class="font-medium"
-            >3<input
-              class="ml-2 mr-6"
-              type="radio"
-              name="stars"
-              value="3"
-              id="3stars"
-              required
-          /></label>
-          <label for="4stars" class="font-medium"
-            >4<input
-              class="ml-2 mr-6"
-              type="radio"
-              name="stars"
-              value="4"
-              id="4stars"
-              required
-          /></label>
-          <label for="5stars" class="font-medium"
-            >5<input
-              class="ml-2 mr-6"
-              type="radio"
-              name="stars"
-              value="5"
-              id="5stars"
-              required
-          /></label>
-        </div>
-
-        <div class="comments-section">
-          <div class="content">
-            <label class="font-medium text-xl"
-              >Comments:
-              <textarea
-                class="block border-2 border-green-300"
-                name="comment"
-                cols="40"
-                rows="3"
-              />
-            </label>
-          </div>
-          <div>
-            <button class="bg-green-300 px-3 text-lg font-bold" type="submit">
-              Submit
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <div v-if="post.ratings" class="lg:clear-right">
-      <div class="text-2xl font-bold">Ratings:</div>
-      <ul class="inline-block">
-        <li class="mt-2" v-for="rating in post.ratings" :key="post.ratings._id">
-          <span class="w-24 inline-block mr-4">
-            <span v-for="star in rating.stars" :key="star" class="text-red-700 text-xl"
-              >&starf;</span
-            >
-          </span>
-          <span class="text-gray-700"
-            ><em>"{{ rating.comment }}"</em></span
-          >
-        </li>
-      </ul>
     </div>
   </div>
 </template>
@@ -106,52 +15,43 @@ import sanity from "../client";
 import imageUrlBuilder from "@sanity/image-url";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-// import PostLayout from './'
 
 const imageBuilder = imageUrlBuilder(sanity);
 
 export default {
   name: "Post",
   components: { SanityBlocks },
-  setup(props) {
+  setup() {
     onMounted(() => {
       fetchPost();
     });
     const post = ref([]);
-    const blocks = ref([]);
-    const serializers = {
-      /* type: {
-        custom: PostLayout
-      } */
-    }
+    const blocks = [];
+    const serializers = {};
 
     const {
       params: { slug },
     } = useRoute();
 
-    const groqPostQuery = `*[ _type=='post' && slug.current == $slug] {
+    const groqPostQuery = `*[slug.current == '${slug}'] {
         _id,
         title,
-        text,
         slug,
         body, 
-      "player":player->name,
       "image": mainImage{
         asset->{
         _id,
         url
       }
       },
-      "ratings": *[ _type == "rating" && references(^._id) ]{ stars, comment, _id}
       "name":author->name,
       "authorImage":author->image
       }[0]
       `;
 
     function fetchPost() {
-      sanity.fetch(groqPostQuery, { slug }).then(
-      /* sanity.fetch(groqPostQuery, { slug: router.params.slug }).then( */
-        (post) => {
+      sanity.fetch(groqPostQuery, { slug: slug }).then(
+        post => {
           post.value = post;
           blocks = post.body;
         },
@@ -169,7 +69,7 @@ export default {
       post,
       blocks,
       imageUrlFor,
-      serializers
+      serializers,
     };
   },
 };
