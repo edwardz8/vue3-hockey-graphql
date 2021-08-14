@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
-    <div class="content" v-if="post">
+    <div class="content">
       <h1>{{ post.title }}</h1>
       <img v-if="post.image" :src="imageUrlFor(post.image).width(440)" />
-      <!--<h6>Provided by: {{ post.name }}</h6>-->
+      <h6>Provided by: {{ post.name }}</h6>
       <SanityBlocks :blocks="blocks" :serializers="serializers" />
     </div>
   </div>
@@ -26,14 +26,14 @@ export default {
       fetchPost();
     });
     const post = ref([]);
-    const blocks = [];
-    const serializers = {};
+    let blocks = [];
+    let serializers = {};
 
     const {
       params: { slug },
     } = useRoute();
 
-    const groqPostQuery = `*[slug.current == '${slug}'] {
+    const groqPostQuery = `*[_type=='post' && slug == '${slug}'] {
         _id,
         title,
         slug,
@@ -50,7 +50,7 @@ export default {
       `;
 
     function fetchPost() {
-      sanity.fetch(groqPostQuery, { slug: slug }).then(
+      sanity.fetch(groqPostQuery).then(
         post => {
           post.value = post;
           blocks = post.body;
