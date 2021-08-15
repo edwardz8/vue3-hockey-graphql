@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid">
-    <div class="content">
+    <div class="loading" v-if="loading">Loading...</div>
+    <div class="content" v-if="post">
       <h1>{{ post.title }}</h1>
       <img v-if="post.image" :src="imageUrlFor(post.image).width(440)" />
       <h6>Provided by: {{ post.name }}</h6>
@@ -13,64 +14,57 @@
 import { SanityBlocks } from "sanity-blocks-vue-component";
 import sanity from "../client";
 import imageUrlBuilder from "@sanity/image-url";
-import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
 
 const imageBuilder = imageUrlBuilder(sanity);
+
+const query = `*[slug.current == $slug] {
+  _id,
+  title,
+  slug,
+  body,
+ "image": mainImage{
+  asset->{
+  _id,
+  url
+}
+},
+"name":author->name,
+"authorImage":author->image
+}[0]
+`;
 
 export default {
   name: "Post",
   components: { SanityBlocks },
-  setup() {
-    onMounted(() => {
-      fetchPost();
-    });
-    const post = ref([]);
-    let blocks = [];
-    // let serializers = {};
+  data() {
+    return {
+      loading: true,
+      post: [],
+      blocks: [],
+    };
+  },
+  created() {
+    this.fetchData();
+  },
+  methods: {
+    imageUrlFor(source) {
+      return imageBuilder.image(source);
+    },
+    fetchData() {
+      this.error = this.post = null;
+      this.loading = true;
 
-    const {
-      params: { slug },
-    } = useRoute();
-
-    const groqPostQuery = `*[slug.current == '${slug}'][0] {
-        _id,
-        title,
-        slug,
-        body, 
-      "image": mainImage{
-        asset->{
-        _id,
-        url
-      }
-      },
-      "name":author->name,
-      "authorImage":author->image
-      }[0]
-      `;
-
-    function fetchPost() {
-      sanity.fetch(groqPostQuery).then(
-        post => {
-          post.value = post;
-          blocks = post.body;
+      sanity.fetch(query, { slug: this.$route.params.slug }).then(
+        (post) => {
+          this.loading = false;
+          this.post = post;
+          this.blocks = post.body;
         },
         (error) => {
           this.error = error;
         }
       );
-    }
-
-    const imageUrlFor = (source) => {
-      return imageBuilder.image(source);
-    };
-
-    return {
-      post,
-      blocks,
-      imageUrlFor,
-      // serializers,
-    };
+    },
   },
 };
 </script>

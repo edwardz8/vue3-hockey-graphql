@@ -70,7 +70,7 @@ export default {
 
     function fetchData() {
       sanity.fetch(query).then(
-        (postResults) => {
+        postResults => {
           posts.value = postResults;
         },
         (error) => {
