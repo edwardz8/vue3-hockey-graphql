@@ -1,34 +1,34 @@
 import { createStore } from 'vuex'
-// import pitcherPros from '../assets/pitchers_2021_JSON.json'
+// import playerPros from '../assets/players_2021_JSON.json'
 
 export default createStore({
   state: {
-    pitcherList: [],
-    // pitchers: pitcherPros,
-    // pitcher: {},
+    playerList: [],
+    // players: playerPros,
+    // player: {},
     search: ''
   },
   getters: {
-    pitchers: (state) => {
-      return state.pitcherList;
+    players: (state) => {
+      return state.playerList;
     },
-    pitcher: (state) => (id) => {
-      return state.pitcherList.find((pitcher) => pitcher.id === id);
+    player: (state) => (id) => {
+      return state.playerList.find((player) => player.id === id);
     },
-    // getPitchers: state => state.pitchers,
-    // getPitcher: state => state.pitcher 
-    /* getPitcher: (state) => (id) => {
-      return state.pitchers.find((pitcher) => pitcher.playerid === id);
+    // getplayers: state => state.players,
+    // getplayer: state => state.player 
+    /* getplayer: (state) => (id) => {
+      return state.players.find((player) => player.playerid === id);
     },  */
   },
   mutations: {
-    CURRENT_PITCHER(state, pitcher) {
-      state.pitcher = pitcher 
+    CURRENT_PLAYER(state, player) {
+      state.player = player 
     }
   },
   actions: {
-    currentPitcher: (context, pitcher) => {
-      context.commit('CURRENT_PITCHER', pitcher.playerid)
+    currentplayer: (context, player) => {
+      context.commit('CURRENT_PLAYER', player.playerid)
     }
   },
   modules: {}

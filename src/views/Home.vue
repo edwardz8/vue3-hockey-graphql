@@ -1,16 +1,16 @@
 <template>
   <div>
-    <Pitchers />
+    <Players />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Pitchers from '@/components/Pitchers.vue'
+import Players from '@/components/Players.vue'
 
 export default {
   components: {
-    Pitchers
+    Players
   }
 }
 </script>

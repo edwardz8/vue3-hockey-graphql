@@ -7,16 +7,16 @@
         <p
           class="logo xl:float-left lg:float-left xl:mr-4 lg:mr-4 md:mr-4 md:my-2 xl:my-2 lg:my-2"
         >
-          <!-- <i :class="matchTeamLogo(pitcher.team)"></i> -->
+          <!-- <i :class="matchTeamLogo(player.team)"></i> -->
         </p>
         <div class="text-center sm:text-left sm:flex-grow" v-if="result && result.value">
           <div class="mb-4">
-            <p class="font-sans text-xl leading-tight mb-2">{{ pitcher.player }}</p>
+            <p class="font-sans text-xl leading-tight mb-2">{{ result.name }}</p>
             <p class="font-sans text-sm leading-tight text-grey-dark mb-2">
-              {{ pitcher.team }}
+              {{ result.team }}
             </p>
             <p class="font-sans text-sm leading-tight">
-              Wins: {{ result.wins }} - Innings: {{ pitcher.innings_pitched }}
+              Assists: {{ result.assists }} - Goals: {{ result.goals }}
             </p>
           </div>
           <div class="sm:flex sm:items-center flex-wrap">
@@ -48,7 +48,6 @@
 
 <script>
 import { useQuery, useResult } from "@vue/apollo-composable";
-import methods from "../methods";
 import gql from "graphql-tag";
 import { watchEffect } from "vue";
 // import chart from "./Chart.vue";
@@ -62,40 +61,35 @@ export default {
   setup(props) {
     const { result, loading, error } = useQuery(
       gql`
-        query pitcher ($id: ID!) {
-          pitchers_by_pk (id: $id) {
-            player
-            id
+        query players($id: String!) {
+          players_by_pk(id: $id) {
+            name
             team
-            innings_pitched
-            strikeouts
-            wins
-            era 
-            war 
-            home_runs_allowed 
-            fip
+            position
+            goals
+            assists
+            points
+            sog
+            hits
+            games
+            plus_minus
+            id
           }
         }
       `,
-      props
+      props.id
     );
-    const pitcher = useResult(result, null, (data) => data.pitcher);
 
     watchEffect(() => {
       console.log(result.value, "result value"); // use this result?
-      console.log(pitcher.value, "pitcher value"); // null initially 
+      // console.log(player.value, "player value"); // null initially
     });
 
     return {
-      pitcher,
       result,
       loading,
-      error,
-      result
+      error
     };
-  },
-  methods: {
-    ...methods,
-  },
+  }
 };
 </script>

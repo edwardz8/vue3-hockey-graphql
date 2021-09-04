@@ -6,7 +6,6 @@ import '../public/assets/styles/tailwind.css'
 import './index.css'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
-// import { SanityBlocks } from 'sanity-blocks-vue-component';
 
 // const cache = new InMemoryCache()
 
@@ -15,10 +14,10 @@ const getHeaders = () => {
         "Access-Control-Allow-Origin" : "*",
         "Content-type": "Application/json",
     }
-    const token = window.localStorage.getItem('ma3UdEKFb5zs0K0yyl019ahX6x3wC4k1Ra1MDCMeEj9d0W8fyaQHE576Y6193tTk')
+    /* const token = window.localStorage.getItem('0KDXheZ8pucFHRxlrPudZ3sNN5abkXahtDl3oAJzy7YoFYau2SqkWbN9eJUICG82')
     if (token) {
         headers.authorization = `Bearer ${token}`
-    }
+    } */
     return headers
 }
 
@@ -26,7 +25,7 @@ const getHeaders = () => {
 
 const httpLink = createHttpLink({
     // uri: 'http://localhost:4000/graphql',
-    uri: 'https://ethical-ostrich-26.hasura.app/v1/graphql',
+    uri: 'https://rotorink.hasura.app/v1/graphql',
     fetch,
     headers: getHeaders()
 })
