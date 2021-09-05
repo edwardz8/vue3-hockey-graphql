@@ -14,10 +14,10 @@ const getHeaders = () => {
         "Access-Control-Allow-Origin" : "*",
         "Content-type": "Application/json",
     }
-    /* const token = window.localStorage.getItem('0KDXheZ8pucFHRxlrPudZ3sNN5abkXahtDl3oAJzy7YoFYau2SqkWbN9eJUICG82')
+    const token = window.localStorage.getItem('0KDXheZ8pucFHRxlrPudZ3sNN5abkXahtDl3oAJzy7YoFYau2SqkWbN9eJUICG82')
     if (token) {
         headers.authorization = `Bearer ${token}`
-    } */
+    }
     return headers
 }
 
