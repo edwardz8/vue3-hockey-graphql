@@ -9,14 +9,14 @@
         >
           <!-- <i :class="matchTeamLogo(player.team)"></i> -->
         </p>
-        <div class="text-center sm:text-left sm:flex-grow" v-if="result && result.value">
+        <div class="text-center sm:text-left sm:flex-grow" v-if="player">
           <div class="mb-4">
-            <p class="font-sans text-xl leading-tight mb-2">{{ result.name }}</p>
+            <p class="font-sans text-xl leading-tight mb-2">{{ player.name }}</p>
             <p class="font-sans text-sm leading-tight text-grey-dark mb-2">
-              {{ result.team }}
+              {{ player.team }}
             </p>
             <p class="font-sans text-sm leading-tight">
-              Assists: {{ result.assists }} - Goals: {{ result.goals }}
+              Assists: {{ player.assists }} - Goals: {{ player.goals }}
             </p>
           </div>
           <div class="sm:flex sm:items-center flex-wrap">
@@ -38,10 +38,10 @@
     </div>
 
     <div class="chart-container">
-      <div v-if="loading">Loading...</div>
-      <!-- <div v-else-if="result && result.value">
-        <chart />
-      </div> -->
+      <!-- <div v-if="$apollo.loading">Loading...</div> -->
+      <div>
+        <!-- <chart :chart-data="player" :option="options" :height="300" /> -->
+      </div>
     </div>
   </div>
 </template>
@@ -50,46 +50,60 @@
 import { useQuery, useResult } from "@vue/apollo-composable";
 import gql from "graphql-tag";
 import { watchEffect } from "vue";
-// import chart from "./Chart.vue";
+// import Chart from "./Chart.vue";
 
 export default {
   name: "PlayerDetails",
-  // components: { chart },
+  // components: { Chart },
   props: {
     id: { type: Number },
   },
+  /* computed: {
+    myStyles() {
+      return {
+        height: `${this.height}.px`,
+        position: "relative",
+      };
+    },
+  }, */
   setup(props) {
     const { result, loading, error } = useQuery(
       gql`
-        query players($id: String!) {
-          players_by_pk(id: $id) {
+        query player($id: Int!) {
+          player: players_by_pk(id: $id) {
             name
+            id
             team
-            position
             goals
             assists
             points
-            sog
             hits
-            games
-            plus_minus
-            id
           }
         }
       `,
-      props.id
+      {
+        id: props.id
+      }
     );
+    const player = useResult(result, null, (data) => data.player);
 
     watchEffect(() => {
+      console.log(player.value);
+      console.log(result.value);
+    });
+
+    /* watchEffect(() => {
       console.log(result.value, "result value"); // use this result?
       // console.log(player.value, "player value"); // null initially
-    });
+    }); */
 
     return {
       result,
       loading,
-      error
+      error,
+      player,
+      props,
     };
-  }
+  },
 };
 </script>

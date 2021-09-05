@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto">
-    <h1 class="mb-1">Player Projections</h1>
+    <h1 class="mb-1">Rotorink Hockey Player Projections</h1>
     <h4 class="mb-4">Click on player name to view more stats</h4>
 
     <div class="flex flex-col">
