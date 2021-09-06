@@ -18,12 +18,12 @@
           >
             Welcome to the home of hockey dfs news, lineup and betting advice. Sign up for our newsletter to receive our weekly top lineup & player prop selections.
           </p>
-          <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+          <div>
             <router-link to="/table">
-              <div class="rounded-md shadow">
-                <a class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-red-700 md:py-4 md:text-lg md:px-10">
+              <div class="rounded-md">
+                <span class="w-full px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-500 hover:bg-gray-800 md:py-4 md:text-lg">
                   Player Stats
-                </a>
+                </span>
               </div>
             </router-link>
           </div>

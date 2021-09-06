@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import '../public/assets/styles/tailwind.css'
 import './index.css'
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
 // const cache = new InMemoryCache()

@@ -58,7 +58,6 @@ import { ref, computed, onRenderTriggered } from "vue";
 import gql from "graphql-tag";
 import { useQuery, useResult } from "@vue/apollo-composable";
 import { PolarAreaChart } from "vue-chart-3";
-// import BarChart from './BarChart.vue'
 
 export default {
   name: "PlayerDetails",

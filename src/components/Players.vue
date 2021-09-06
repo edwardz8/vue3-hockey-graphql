@@ -1,8 +1,5 @@
 <template>
   <div class="container mx-auto">
-    <h1 class="mb-1">Rotorink Hockey Player Projections</h1>
-    <h4 class="mb-4">Click on player name to view more stats</h4>
-
     <div class="flex flex-col">
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -12,49 +9,49 @@
                 <tr>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
                     Name
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
                     Team
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
                     Goals
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
                     Position
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
                     Assists
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
                     Points
                   </th>
-                   <th
+                  <th
                     scope="col"
-                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
                     Shots
                   </th>
                   <th
                     scope="col"
-                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
                     Hits
                   </th>
@@ -62,9 +59,7 @@
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
                 <tr v-for="player in players" :key="player.id">
-                  <router-link
-                    :to="{ name: 'PlayerDetails', params: { id: player.id }}"
-                  >
+                  <router-link :to="{ name: 'PlayerDetails', params: { id: player.id } }">
                     <td class="px-4 py-4 whitespace-nowrap">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 h-5 w-5">
@@ -72,7 +67,9 @@
                           <span> 🏒 </span>
                         </div>
                         <div class="ml-4">
-                          <div class="text-sm font-medium text-gray-900">
+                          <div
+                            class="text-sm font-medium hover:text-gray-900 text-blue-600"
+                          >
                             {{ player.name }}
                           </div>
                         </div>
@@ -108,6 +105,11 @@
               </tbody>
             </table>
           </div>
+          <div v-if="loading">
+            <div class="spinner-grow text-dark mt-6" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -117,8 +119,7 @@
 <script>
 import { useQuery, useResult } from "@vue/apollo-composable";
 import playersQuery from "../graphql/players.query.gql";
-// import methods from "../methods";
-import { watch } from 'vue'
+import { watch } from "vue";
 
 export default {
   setup() {
@@ -126,15 +127,20 @@ export default {
     const players = useResult(result, null, (data) => data.players);
 
     watch(() => {
-         console.log(players.value)
-      })
+      console.log(players.value);
+    });
 
     return {
       players,
       loading,
     };
-  }
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.progress-bar {
+  height: 20px;
+  color: black;
+}
+</style>
