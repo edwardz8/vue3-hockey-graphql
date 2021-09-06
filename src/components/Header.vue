@@ -14,7 +14,7 @@
             <span class="block text-red-600 xl:inline"> stats and stories</span>
           </h1>
           <p
-            class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
+            class="mt-3 mb-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
           >
             Welcome to the home of hockey dfs news, lineup and betting advice. Sign up for our newsletter to receive our weekly top lineup & player prop selections.
           </p>
