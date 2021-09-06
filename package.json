@@ -1,5 +1,5 @@
 {
-  "name": "vue3-baseball",
+  "name": "rotorink",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -23,6 +23,7 @@
     "netlify-cms-app": "^2.14.40",
     "sanity-blocks-vue-component": "^1.0.0",
     "vue": "^3.0.0",
+    "vue-chart-3": "^0.5.8",
     "vue-chartjs": "^3.5.1",
     "vue-router": "^4.0.0-0",
     "vue3-highcharts": "^0.1.3",

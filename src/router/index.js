@@ -4,6 +4,7 @@ import {
 } from 'vue-router'
 import Home from '../views/Home.vue'
 import PlayerDetails from "../components/PlayerDetails.vue"
+import Table from '../views/Table.vue'
 import Blog from '@/views/Blog.vue'
 import NotFound from '../views/NotFound.vue'
 import Post from '@/views/Post.vue'
@@ -39,6 +40,11 @@ const routes = [{
     component: Post,
     name: "Post",
     //props: route => ({ id: route.params.id })
+  },
+  {
+    path: '/table',
+    name: 'Table',
+    component: Table
   },
   {
     path: '/:path(.*)',

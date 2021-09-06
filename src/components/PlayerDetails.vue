@@ -40,33 +40,74 @@
     <div class="chart-container">
       <!-- <div v-if="$apollo.loading">Loading...</div> -->
       <div>
-        <!-- <chart :chart-data="player" :option="options" :height="300" /> -->
+        <!--  <chart :chart-data="player" :option="options" :height="300" /> -->
+        <PolarAreaChart
+          ref="polarRef"
+          :chart-data="playerData"
+          :option="options"
+          :height="300"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { useQuery, useResult } from "@vue/apollo-composable";
+import { ref, computed, onRenderTriggered } from "vue";
 import gql from "graphql-tag";
-import { watchEffect } from "vue";
-// import Chart from "./Chart.vue";
+import { useQuery, useResult } from "@vue/apollo-composable";
+import { PolarAreaChart } from "vue-chart-3";
 
 export default {
   name: "PlayerDetails",
-  // components: { Chart },
+  components: { PolarAreaChart },
   props: {
+    /* chartData: { type: Object, default: null }, */
     id: { type: Number },
   },
-  /* computed: {
-    myStyles() {
+  setup(props) {
+    onRenderTriggered(() => {
+      // console.log(result.value, "result gql value render triggered");
+      console.log(playerData.value, "player chart data");
+      console.log(player.value, "player data");
+      console.log(data.value, "data");
+      console.log(playerComputed, "player computed data");
+      playerData;
+    });
+
+    const data = ref(player)
+    const polarRef = ref();
+    const height = ref(100);
+
+    const options = ref({
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        title: {
+          display: true,
+          text: "Player Projections",
+        },
+        maintainAspectRatio: false,
+      },
+    });
+
+
+    const myStyles = computed(() => {
       return {
-        height: `${this.height}.px`,
+        height: `${height}.px`,
         position: "relative",
       };
-    },
-  }, */
-  setup(props) {
+    });
+
+    const playerComputed = computed({
+      get: () => player.value,
+      set: (val) => {
+        player.value = val;
+      },
+    });
+
     const { result, loading, error } = useQuery(
       gql`
         query player($id: Int!) {
@@ -82,27 +123,39 @@ export default {
         }
       `,
       {
-        id: props.id
+        id: props.id,
       }
     );
     const player = useResult(result, null, (data) => data.player);
 
-    watchEffect(() => {
-      console.log(player.value);
-      console.log(result.value);
-    });
-
-    /* watchEffect(() => {
-      console.log(result.value, "result value"); // use this result?
-      // console.log(player.value, "player value"); // null initially
-    }); */
+    const playerData = computed(() => ({
+      labels: ["Goals", "Assists", "Shots", "Hits", "Points"],
+      datasets: [
+        {
+          data: [player.goals, player.assists, player.sog, player.hits, player.points],
+          backgroundColor: [
+            "rgba(300, 400, 30, 0.3)",
+            "rgba(300, 400, 30, 0.3)",
+            "rgba(0, 151, 19, 0.3)",
+            "rgba(255, 0, 15, 0.4)",
+            "rgba(600, 200, 19, 0.3)",
+          ],
+        },
+      ],
+    }));
 
     return {
       result,
       loading,
       error,
-      player,
       props,
+      options,
+      height,
+      myStyles,
+      polarRef,
+      playerData,
+      playerComputed,
+      player
     };
   },
 };

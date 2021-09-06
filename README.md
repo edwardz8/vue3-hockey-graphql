@@ -1,4 +1,4 @@
-# vue3-baseball
+# vue3-rotorink-hockey
 
 ## Project setup
 ```
