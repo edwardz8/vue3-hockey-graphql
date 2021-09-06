@@ -84,7 +84,7 @@
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap">
                     <span
-                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-green-800"
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-gray-800"
                     >
                       {{ player.goals }}
                     </span>

@@ -41,6 +41,7 @@
       <!-- <div v-if="$apollo.loading">Loading...</div> -->
       <div>
         <!--  <chart :chart-data="player" :option="options" :height="300" /> -->
+      <!-- <bar-chart :chart-data="chartData" :option="options" :height="300" /> -->
         <PolarAreaChart
           ref="polarRef"
           :chart-data="playerData"
@@ -57,17 +58,23 @@ import { ref, computed, onRenderTriggered } from "vue";
 import gql from "graphql-tag";
 import { useQuery, useResult } from "@vue/apollo-composable";
 import { PolarAreaChart } from "vue-chart-3";
+// import BarChart from './BarChart.vue'
 
 export default {
   name: "PlayerDetails",
   components: { PolarAreaChart },
   props: {
-    /* chartData: { type: Object, default: null }, */
     id: { type: Number },
+  },
+  data() {
+    return {
+      chartData: null,
+      options: { responsive: false, maintainAspectRatio: false },
+      height: 100,
+    };
   },
   setup(props) {
     onRenderTriggered(() => {
-      // console.log(result.value, "result gql value render triggered");
       console.log(playerData.value, "player chart data");
       console.log(player.value, "player data");
       console.log(data.value, "data");
@@ -75,7 +82,7 @@ export default {
       playerData;
     });
 
-    const data = ref(player)
+    const data = ref(playerData)
     const polarRef = ref();
     const height = ref(100);
 

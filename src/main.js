@@ -6,7 +6,6 @@ import '../public/assets/styles/tailwind.css'
 import './index.css'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
-
 // const cache = new InMemoryCache()
 
 const getHeaders = () => {
@@ -21,8 +20,6 @@ const getHeaders = () => {
     return headers
 }
 
-// const BASEBALL_API = 'https://ethical-ostrich-26.hasura.app/v1/graphql'
-
 const httpLink = createHttpLink({
     // uri: 'http://localhost:4000/graphql',
     uri: 'https://rotorink.hasura.app/v1/graphql',
@@ -32,7 +29,6 @@ const httpLink = createHttpLink({
 
 const apolloClient = new ApolloClient({
     link: httpLink,
-    // link: new HttpLink({ uri: BASEBALL_API }),
     cache: new InMemoryCache(),
     connectToDevTools: true
   })
@@ -43,3 +39,10 @@ const apolloClient = new ApolloClient({
       },
       render() { return h(App) }
   }).use(store).use(router).mount('#app')
+
+ /*  new Vue({
+    el: "#app",
+    router,
+    store,
+    render: h => h(App),
+  }) */
