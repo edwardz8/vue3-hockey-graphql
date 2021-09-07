@@ -3,7 +3,7 @@ module.exports = {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true
     },
-    purge: ['./public/**/*.html', './src/**/*.vue'],
+    purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
     darkMode: 'media', // or false
     theme: {
       fontFamily: {},
@@ -12,5 +12,7 @@ module.exports = {
     variants: {
       extend: {},
     },
-    plugins: [],
+    plugins: [
+      require('@tailwindcss/aspect-ratio'),
+    ],
   }

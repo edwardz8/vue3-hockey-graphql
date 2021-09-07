@@ -4,7 +4,9 @@ node_modules
 public/assets/
 /public/assets/
 /public 
-public 
+public
+**/*.png 
+**/*.svg
 .png 
 .svg
 # local env files

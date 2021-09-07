@@ -8,6 +8,7 @@ import Table from '../views/Table.vue'
 import Blog from '@/views/Blog.vue'
 import NotFound from '../views/NotFound.vue'
 import Post from '@/views/Post.vue'
+import Contact from '@/views/Contact.vue'
 
 const routes = [{
     path: '/',
@@ -45,6 +46,11 @@ const routes = [{
     path: '/table',
     name: 'Table',
     component: Table
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: Contact
   },
   {
     path: '/:path(.*)',
