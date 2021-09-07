@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app container mx-auto">
     <div id="nav">
     <router-link to="/">Home</router-link>
-    <router-link to="/table">Projections</router-link>
-    <router-link to="/articles">Articles</router-link>
+    <router-link to="/table">Stats</router-link>
+    <router-link to="/articles">Stories</router-link>
     <router-link to="/contact">About</router-link>
     </div>
   </div>

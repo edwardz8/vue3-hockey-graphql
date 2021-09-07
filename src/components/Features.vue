@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="bg-gray-100"> -->
-  <div class="container rounded-lg">
+  <div class="container rounded-lg features">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-2xl mx-auto py-16 sm:py-24 lg:py-20 lg:max-w-none">
         <h2 class="text-2xl font-extrabold text-gray-900">Features</h2>

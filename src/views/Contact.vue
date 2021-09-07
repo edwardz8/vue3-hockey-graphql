@@ -1,5 +1,7 @@
 <template>
+<div class="contact">
 <Features />
+</div>
 </template>
 
 <script>
@@ -10,3 +12,12 @@ export default {
     components: { Features }
 }
 </script>
+
+<style>
+.contact {
+    /* background-color: rgb(238, 238, 238); */
+    border-radius: 20px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+</style>
