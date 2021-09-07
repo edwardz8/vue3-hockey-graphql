@@ -1,15 +1,15 @@
 <template>
 <div class="contact">
-<Features />
+<Feature />
 </div>
 </template>
 
 <script>
-import Features from '@/components/Features.vue'
+import Feature from '@/components/Feature.vue'
 
 export default {
     name: 'Contact',
-    components: { Features }
+    components: { Feature }
 }
 </script>
 
