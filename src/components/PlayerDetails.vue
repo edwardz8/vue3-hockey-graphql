@@ -45,7 +45,7 @@
         <PolarAreaChart
           ref="polarRef"
           :chart-data="playerData"
-          :option="options"
+          :options="options"
           :height="300"
         />
       </div>

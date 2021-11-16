@@ -6,6 +6,7 @@
 
 <script>
 import Feature from '@/components/Feature.vue'
+// import Newsletter from '@/components/Newsletter.vue'
 
 export default {
     name: 'Contact',
