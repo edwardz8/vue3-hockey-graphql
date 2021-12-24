@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import ForumList from './ForumList.vue'
 import { findById } from '@/helpers'
 
@@ -27,4 +27,4 @@ export default {
 <template>
     <h2>{{ category.name }}</h2>
     <ForumList :title="category.name" :forums="getForumsForCategory(category)" />
-</template>
+</template> -->

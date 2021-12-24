@@ -17,8 +17,9 @@ export default {
       return findById(this.$store.state.forums, this.id)
       // return this.$store.state.forums.find(forum => forum.id === this.id)
     },
-    thread() {
-      return this.$store.state.threads.find(thread => thread.forumId === this.id)
+    threads () {
+      return this.$store.state.threads.map(thread => thread.forumId === this.id)
+      // return this.forum.threads.map(threadId => this.$store.getters.thread(threadId))
     }
   },
 };

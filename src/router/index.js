@@ -10,7 +10,7 @@ import NotFound from '@/views/NotFound.vue'
 import Post from '@/views/Post.vue'
 import Contact from '@/views/Contact.vue'
 import ForumMain from '@/views/ForumMain.vue'
-import ForumHome from '@/views/ForumHome.vue'
+// import ForumHome from '@/views/ForumHome.vue'
 import ThreadShow from '@/components/ThreadShow.vue'
 import ThreadCreate from '@/views/ThreadCreate'
 import ThreadEdit from '@/views/ThreadEdit'
@@ -62,11 +62,11 @@ const routes = [{
     name: 'Contact',
     component: Contact
   },
-  {
+  /* {
     path: '/home-forum',
     name: 'ForumHome',
     component: ForumHome
-  },
+  }, */
   {
     path: '/forum',
     name: 'ForumMain',

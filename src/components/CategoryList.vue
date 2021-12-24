@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import ForumList from './ForumList.vue'
 
 export default {
@@ -19,4 +19,4 @@ export default {
 
 <template>
 <ForumList v-for="category in categories" :key="category.id" :forums="getForumsForCategory(category)" :title="category.name" :category-id="category.id" />
-</template>
+</template> -->

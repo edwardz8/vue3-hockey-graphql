@@ -55,7 +55,7 @@ export default {
 
         <div class="activity">
           <p class="replies-count">
-           {{ thread.posts.length - 1 }} replies
+           {{ thread.repliesCount }} replies
            <!-- {{ (thread.posts.length > 1 || thread.posts.length === 0) ? "replies" : "reply" }} -->
           </p>
 

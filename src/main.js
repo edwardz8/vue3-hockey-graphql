@@ -9,7 +9,6 @@ import "bootstrap"
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
 // const cache = new InMemoryCache()
-// import AppDate from './components/AppDate.vue'
 
 const getHeaders = () => {
     const headers = {

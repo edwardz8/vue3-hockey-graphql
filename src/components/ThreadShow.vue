@@ -26,7 +26,7 @@ export default {
       // also available under this.$route.params.id
     },
     threadPosts() {
-      return this.posts.filter((post) => post.threadId === this.id);
+      return this.posts.filter(post => post.threadId === this.id)
     },
   },
   methods: {
@@ -49,16 +49,16 @@ export default {
       {{ thread.title }}
       <router-link :to="{ name: 'ThreadEdit', id: this.id }">Edit Thread</router-link>
 
-      <!-- 
-         <p>
-      By <a href="#" class="link-unstyled">{{thread.author.name}}</a>, <AppDate :timestamp="thread.publishedAt" />.
-      <span
-        style="float:right; margin-top: 2px;"
-        class="hide-mobile text-faded text-small"
-        >{{thread.repliesCount}} replies by {{thread.contributorsCount}} contributors</span
-      >
-    </p>
-       -->
+      <p>
+        By <a href="#" class="link-unstyled">{{ thread.author.name }}</a
+        >, <AppDate :timestamp="thread.publishedAt" />.
+        <span
+          style="float: right; margin-top: 2px"
+          class="hide-mobile text-faded text-small"
+          >{{ thread.repliesCount }} replies by
+          {{ thread.contributorsCount }} contributors</span
+        >
+      </p>
     </h4>
 
     <post-list :posts="threadPosts" />

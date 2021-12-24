@@ -1,6 +1,5 @@
 <script>
 import AppDate from './AppDate.vue'
-import { findById } from '@/helpers'
 
 export default {
     props: {
@@ -17,7 +16,7 @@ export default {
     },
     methods: {
         userById (userId) {
-          return findById(this.users, userId)
+          return this.$store.getters.user(userId)
             // return this.users.find(p => p.id === userId)
         }
     }

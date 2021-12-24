@@ -46,7 +46,7 @@
           ref="polarRef"
           :chart-data="playerData"
           :options="options"
-          :height="300"
+          :height="280"
         />
       </div>
     </div>
@@ -76,12 +76,10 @@ export default {
     onRenderTriggered(() => {
       console.log(playerData.value, "player chart data");
       console.log(player.value, "player data");
-      console.log(data.value, "data");
-      console.log(playerComputed, "player computed data");
-      playerData;
+      data
     });
 
-    const data = ref(playerData)
+    const data = ref(player)
     const polarRef = ref();
     const height = ref(100);
 
@@ -107,13 +105,6 @@ export default {
       };
     });
 
-    const playerComputed = computed({
-      get: () => player.value,
-      set: (val) => {
-        player.value = val;
-      },
-    });
-
     const { result, loading, error } = useQuery(
       gql`
         query player($id: Int!) {
@@ -124,6 +115,7 @@ export default {
             goals
             assists
             points
+            sog
             hits
           }
         }
@@ -138,10 +130,10 @@ export default {
       labels: ["Goals", "Assists", "Shots", "Hits", "Points"],
       datasets: [
         {
-          data: [player.goals, player.assists, player.sog, player.hits, player.points],
+          data: [player.value.goals, player.value.assists, player.value.sog, player.value.hits, player.value.points],
           backgroundColor: [
-            "rgba(300, 400, 30, 0.3)",
-            "rgba(300, 400, 30, 0.3)",
+            "rgba(0, 187, 148, 0.42)",
+            "rgba(106, 126, 177, 0.8)",
             "rgba(0, 151, 19, 0.3)",
             "rgba(255, 0, 15, 0.4)",
             "rgba(600, 200, 19, 0.3)",
@@ -160,7 +152,6 @@ export default {
       myStyles,
       polarRef,
       playerData,
-      playerComputed,
       player
     };
   },

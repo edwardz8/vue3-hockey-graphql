@@ -4,11 +4,6 @@ import Forum from '../components/Forum.vue'
 export default {
     name: 'ForumMain',
     components: { Forum },
-    data () {
-        return {
-            //
-        }
-    }
 }
 </script>
 
