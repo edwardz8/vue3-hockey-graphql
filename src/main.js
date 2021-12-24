@@ -24,6 +24,7 @@ const getHeaders = () => {
 
 const httpLink = createHttpLink({
     // uri: 'http://localhost:4000/graphql',
+    // uri: 'https://fungo-db.herokuapp.com/',
     uri: 'https://rotorink.hasura.app/v1/graphql',
     fetch,
     headers: getHeaders()
