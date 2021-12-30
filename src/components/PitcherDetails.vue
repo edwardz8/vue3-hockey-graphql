@@ -7,16 +7,16 @@
         <p
           class="logo xl:float-left lg:float-left xl:mr-4 lg:mr-4 md:mr-4 md:my-2 xl:my-2 lg:my-2"
         >
-          <!-- <i :class="matchTeamLogo(player.team)"></i> -->
+          <i :class="matchTeamLogo(pitcher.team)"></i>
         </p>
-        <div class="text-center sm:text-left sm:flex-grow" v-if="player">
+        <div class="text-center sm:text-left sm:flex-grow" v-if="pitcher">
           <div class="mb-4">
-            <p class="font-sans text-xl leading-tight mb-2">{{ player.name }}</p>
+            <p class="font-sans text-xl leading-tight mb-2">{{ pitcher.name }}</p>
             <p class="font-sans text-sm leading-tight text-grey-dark mb-2">
-              {{ player.team }}
+              {{ pitcher.team }}
             </p>
             <p class="font-sans text-sm leading-tight">
-              Assists: {{ player.assists }} - Goals: {{ player.goals }}
+              Wins: {{ pitcher.wins }} - Losses: {{ pitcher.losses }}
             </p>
           </div>
           <div class="sm:flex sm:items-center flex-wrap">
@@ -41,10 +41,10 @@
       <!-- <div v-if="$apollo.loading">Loading...</div> -->
       <div>
         <!--  <chart :chart-data="player" :option="options" :height="300" /> -->
-      <!-- <bar-chart :chart-data="chartData" :option="options" :height="300" /> -->
+        <!-- <bar-chart :chart-data="chartData" :option="options" :height="300" /> -->
         <PolarAreaChart
           ref="polarRef"
-          :chart-data="playerData"
+          :chart-data="pitcherData"
           :options="options"
           :height="280"
         />
@@ -56,11 +56,13 @@
 <script>
 import { ref, computed, onRenderTriggered } from "vue";
 import gql from "graphql-tag";
+// import pitcherQuery from "../graphql/pitcher.query.gql";
 import { useQuery, useResult } from "@vue/apollo-composable";
 import { PolarAreaChart } from "vue-chart-3";
+import matchTeamLogo from "../methods";
 
 export default {
-  name: "PlayerDetails",
+  name: "PitcherDetails",
   components: { PolarAreaChart },
   props: {
     id: { type: Number },
@@ -74,12 +76,12 @@ export default {
   },
   setup(props) {
     onRenderTriggered(() => {
-      console.log(playerData.value, "player chart data");
-      console.log(player.value, "player data");
-      data
+      console.log(pitcherData.value, "pitcher chart data");
+      console.log(pitcher.value, "pitcher data");
+      data;
     });
 
-    const data = ref(player)
+    const data = ref(pitcher);
     const polarRef = ref();
     const height = ref(100);
 
@@ -97,7 +99,6 @@ export default {
       },
     });
 
-
     const myStyles = computed(() => {
       return {
         height: `${height}.px`,
@@ -107,30 +108,52 @@ export default {
 
     const { result, loading, error } = useQuery(
       gql`
-        query player($id: Int!) {
-          player: players_by_pk(id: $id) {
+        query Pitcher($pitcherId: ID!) {
+          pitcher(id: $pitcherId) {
             name
-            id
             team
-            goals
-            assists
-            points
-            sog
+            wins
+            losses
+            era
+            games
+            games_started
+            saves
+            innings_pitched
             hits
+            earned_runs
+            home_runs_allowed
+            strikeouts
+            walks
+            whip
+            ks_per_nine
+            walks_per_nine
+            fip
+            war
+            ra_nine_war
+            adp
+            id 
+            __typename
           }
         }
       `,
       {
-        id: props.id,
+        pitcherId: props.id,
       }
     );
-    const player = useResult(result, null, (data) => data.player);
 
-    const playerData = computed(() => ({
-      labels: ["Goals", "Assists", "Shots", "Hits", "Points"],
+    const pitcher = useResult(result, null, (data) => data.pitcher);
+
+    const pitcherData = computed(() => ({
+      labels: ["Wins", "Losses", "Games", "Saves", "Home Runs Allowed"],
       datasets: [
         {
-          data: [player.value.goals, player.value.assists, player.value.sog, player.value.hits, player.value.points],
+          data: [
+            pitcher.value.wins,
+            pitcher.value.losses,
+            pitcher.value.games,
+            pitcher.value.saves,
+            pitcher.value.home_runs_allowed,
+          ],
           backgroundColor: [
             "rgba(0, 187, 148, 0.42)",
             "rgba(106, 126, 177, 0.8)",
@@ -151,8 +174,9 @@ export default {
       height,
       myStyles,
       polarRef,
-      playerData,
-      player
+      pitcherData,
+      pitcher,
+      ...matchTeamLogo,
     };
   },
 };

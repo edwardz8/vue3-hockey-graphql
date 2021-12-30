@@ -18,12 +18,12 @@ export default {
   mounted() {
     this.renderChart(
       {
-        labels: ["Goals", "Assists", "Shots", "Hits", "Points"],
+        labels: ["Wins", "Losses", "Games", "Saves", "HRs Allowed"],
         datasets: [
           {
             label: this.chartData.player,
             backgroundColor: ["rgba(300, 400, 30, 0.3)", "rgba(300, 400, 30, 0.3)", "rgba(0, 151, 19, 0.3)", "rgba(255, 0, 15, 0.4)", "rgba(600, 200, 19, 0.3)"],
-            data: [this.chartData.goals, this.chartData.assists, this.chartData.sog, this.chartData.hits, this.chartData.points ],
+            data: [this.chartData.wins, this.chartData.losses, this.chartData.games, this.chartData.saves, this.chartData.home_runs_allowed ],
           },
         ],
       },

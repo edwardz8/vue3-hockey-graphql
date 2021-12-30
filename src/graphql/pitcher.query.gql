@@ -1,0 +1,26 @@
+query pitcher($pitcherId: ID!) {
+  pitcher(id: $pitcherId) {
+    name
+    team
+    wins
+    losses
+    era
+    games
+    games_started
+    saves
+    innings_pitched
+    hits
+    earned_runs
+    home_runs_allowed
+    strikeouts
+    walks
+    whip
+    ks_per_nine
+    walks_per_nine
+    fip
+    war
+    ra_nine_war
+    adp
+    id
+  }
+}

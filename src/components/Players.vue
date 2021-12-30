@@ -23,83 +23,74 @@
                     scope="col"
                     class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
-                    Goals
+                    Wins
                   </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
-                    Position
+                    Losses
                   </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
-                    Assists
+                    Saves
                   </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
-                    Points
+                    Games
                   </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
                   >
-                    Shots
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
-                  >
-                    Hits
+                    ERA
                   </th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                <tr v-for="player in players" :key="player.id">
-                  <router-link :to="{ name: 'PlayerDetails', params: { id: player.id } }">
+                <tr v-for="pitcher in pitchers" :key="pitcher.id">
+                  <router-link :to="{ name: 'PitcherDetails', params: { id: pitcher.id } }">
                     <td class="px-4 py-4 whitespace-nowrap">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 h-5 w-5">
-                          <!-- <i :class="matchTeamLogo(player.team)"></i> -->
-                          <span> 🏒 </span>
+                          <i :class="matchTeamLogo(pitcher.team)"></i>
+                          <!-- <span> ⚾ </span> -->
                         </div>
                         <div class="ml-4">
                           <div
-                            class="text-sm font-medium hover:text-gray-900 text-blue-600"
+                            class="text-sm font-medium hover:text-gray-900 text-gray-800"
                           >
-                            {{ player.name }}
+                            {{ pitcher.name }}
                           </div>
                         </div>
                       </div>
                     </td>
                   </router-link>
                   <td class="px-4 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">{{ player.team }}</div>
+                    <div class="text-sm text-gray-900">{{ pitcher.team }}</div>
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap">
                     <span
                       class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-gray-800"
                     >
-                      {{ player.goals }}
+                      {{ pitcher.wins }}
                     </span>
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ player.position }}
+                    {{ pitcher.losses }}
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ player.assists }}
+                    {{ pitcher.saves }}
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ player.points }}
+                    {{ pitcher.games }}
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ player.sog }}
-                  </td>
-                  <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ player.hits }}
+                    {{ pitcher.era }}
                   </td>
                 </tr>
               </tbody>
@@ -118,21 +109,23 @@
 
 <script>
 import { useQuery, useResult } from "@vue/apollo-composable";
-import playersQuery from "../graphql/players.query.gql";
-import { watch } from "vue";
+import pitchersQuery from "../graphql/pitchers.query.gql";
+import { watchEffect } from "vue";
+import matchTeamLogo from "../methods";
 
 export default {
   setup() {
-    const { result, loading } = useQuery(playersQuery);
-    const players = useResult(result, null, (data) => data.players);
+    const { result, loading } = useQuery(pitchersQuery);
+    const pitchers = useResult(result, null, (data) => data.pitchers);
 
-    watch(() => {
-      console.log(players.value);
+    watchEffect(() => {
+      console.log(pitchers.value);
     });
 
     return {
-      players,
+      pitchers,
       loading,
+      ...matchTeamLogo,
     };
   },
 };

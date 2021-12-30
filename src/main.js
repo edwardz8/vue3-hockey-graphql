@@ -8,25 +8,26 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
-// const cache = new InMemoryCache()
 
 const getHeaders = () => {
     const headers = {
         "Access-Control-Allow-Origin": "*",
-        "Content-type": "Application/json",
+        "Access-Control-Allow-Origin": "https://studio.apollographql.com",
+        "Access-Control-Allow-Origin": "https://studio.apollographql.com/sandbox/explorer",
+        "Access-Control-Allow-Credentials": true
     }
-    const token = window.localStorage.getItem('0KDXheZ8pucFHRxlrPudZ3sNN5abkXahtDl3oAJzy7YoFYau2SqkWbN9eJUICG82')
+    /* const token = window.localStorage.getItem('0KDXheZ8pucFHRxlrPudZ3sNN5abkXahtDl3oAJzy7YoFYau2SqkWbN9eJUICG82')
     if (token) {
         headers.authorization = `Bearer ${token}`
-    }
+    } */
     return headers
 }
 
 const httpLink = createHttpLink({
     // uri: 'http://localhost:4000/graphql',
-    // uri: 'https://fungo-db.herokuapp.com/',
-    uri: 'https://rotorink.hasura.app/v1/graphql',
-    fetch,
+    uri: 'http://localhost:9090',
+    // uri: 'https://rotorink.hasura.app/v1/graphql',
+    fetch, 
     headers: getHeaders()
 })
 
@@ -36,10 +37,6 @@ const apolloClient = new ApolloClient({
     connectToDevTools: true
 })
 
-// const forumApp = createApp(App)
-
-// forumApp.component(AppDate)
-
 createApp({
     setup() {
         provide(DefaultApolloClient, apolloClient)
@@ -48,10 +45,3 @@ createApp({
         return h(App)
     }
 }).use(store).use(router).mount('#app')
-
-/*  new Vue({
-   el: "#app",
-   router,
-   store,
-   render: h => h(App),
- }) */

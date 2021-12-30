@@ -3,7 +3,7 @@ import {
   createWebHistory
 } from 'vue-router'
 import Home from '../views/Home.vue'
-import PlayerDetails from "../components/PlayerDetails.vue"
+import PitcherDetails from "../components/PitcherDetails.vue"
 import Table from '@/views/Table.vue'
 import Blog from '@/views/Blog.vue'
 import NotFound from '@/views/NotFound.vue'
@@ -26,8 +26,8 @@ const routes = [{
     component: Home
   },
   {
-    path: "/player/:id",
-    name: "PlayerDetails",
+    path: "/pitcher/:id",
+    name: "PitcherDetails",
     props: (route) => {
       const id = Number.parseInt(route.params.id)
       if (Number.isNaN(id)) {
@@ -37,7 +37,7 @@ const routes = [{
         id
       };
     },
-    component: PlayerDetails
+    component: PitcherDetails
   },
   {
     path: '/articles',

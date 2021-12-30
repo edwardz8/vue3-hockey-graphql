@@ -19,20 +19,19 @@
   #nav a {
     font-weight: bold;
     font-size: 18px;
-    color: #2c3e50;
+    color: #4d8f7a;
     text-decoration: none !important;
     margin-left: 1rem;
     margin-right: 1rem;
   }
   
   #nav a.router-link-exact-active {
-    color: #002583;
-    /* color: #4782e9; */
+    color: #5c647b;
   }
 
   #nav a:hover {
     font-weight: bold;
     font-size: 18px;
-    color: #4d7cf2 !important;
+    color: #5c647b !important;
   }
 </style>

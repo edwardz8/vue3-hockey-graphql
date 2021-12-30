@@ -20,36 +20,3 @@ const playerQuery = gql `
 `
 
 export default playerQuery
-
-
-/* query players {
-  players_by_pk(id: "1") {
-    name
-    games
-    assists
-    goals
-    hits
-    position
-    points
-    id
-    sog
-    team
-    plus_minus
-  }
-}
-
-query players {
-  players(order_by: {goals: desc}) {
-    name
-    games
-    assists
-    goals
-    hits
-    position
-    points
-    id
-    sog
-    team
-    plus_minus
-  }
-} */

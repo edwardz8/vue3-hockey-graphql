@@ -1,7 +1,7 @@
 <template>
   <div class="articles">
-    <h1>rotorink</h1>
-    <p>betting, dfs hockey lineups and prospect articles</p>
+    <h1>fungo fantasy baseball</h1>
+    <p>betting, dfs baseball lineups and dynasty articles</p>
     <div class="posts">
       <!--<div class="loading" v-if="loading">Loading...</div>-->
       <div class="container">
@@ -20,11 +20,11 @@
                 <div class="px-6 pt-4 pb-2">
                   <span
                     class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                    >#nhlbetting</span
+                    >#mlbbetting</span
                   >
                   <span
                     class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                    >#nhldfs</span
+                    >#mlbdfs</span
                   >
                 </div>
               </div>

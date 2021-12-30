@@ -1,19 +1,19 @@
 <template>
   <div class="players mt-4">
-    <h4 class="mb-1">Rotorink Hockey Player Projections 2021-22</h4>
+    <h4 class="mb-1">Fungo Fantasy Baseball Projections 2022</h4>
     <p class="mb-2">Click on player name to view more stats</p>
     <div class="inline-flex mt-2 mb-4">
       <button
         @click="current = 'Players'"
-        class="cursor-not-allowed bg-gray-300 hover:bg-red-300 text-gray-800 font-bold py-2 px-4 rounded-l"
+        class="cursor-not-allowed bg-gray-300 hover:bg-green-300 text-gray-800 font-bold py-2 px-4 rounded-l"
       >
-        Goalies
+        Pitchers
       </button>
       <button
         @click="current = 'Players'"
-        class="bg-blue-300 hover:bg-blue-400 text-gray-800 font-bold py-2 px-4 rounded-r"
+        class="bg-green-300 hover:bg-green-400 text-gray-800 font-bold py-2 px-4 rounded-r"
       >
-        Skaters
+        Hitters
       </button>
     </div>
 
@@ -42,11 +42,12 @@ export default {
 <style scoped>
 a {
   font-weight: bold;
+  color: #5c647b; 
 }
 
 a:hover {
   font-weight: bold;
   font-size: 18px;
-  color: #4d7cf2 !important;
+  color: #787878 !important;
 }
 </style>
