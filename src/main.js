@@ -14,6 +14,7 @@ const getHeaders = () => {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Origin": "https://studio.apollographql.com",
         "Access-Control-Allow-Origin": "https://studio.apollographql.com/sandbox/explorer",
+        "Access-Control-Allow-Origin": "https://fungo-database.herokuapp.com/",
         "Access-Control-Allow-Credentials": true
     }
     /* const token = window.localStorage.getItem('0KDXheZ8pucFHRxlrPudZ3sNN5abkXahtDl3oAJzy7YoFYau2SqkWbN9eJUICG82')
@@ -25,7 +26,8 @@ const getHeaders = () => {
 
 const httpLink = createHttpLink({
     // uri: 'http://localhost:4000/graphql',
-    uri: 'http://localhost:9090',
+    // uri: 'http://localhost:9090',
+    uri: 'https://fungo-database.herokuapp.com/',
     // uri: 'https://rotorink.hasura.app/v1/graphql',
     fetch, 
     headers: getHeaders()
