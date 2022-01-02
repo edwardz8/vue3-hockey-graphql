@@ -4,6 +4,7 @@ import {
 } from 'vue-router'
 import Home from '../views/Home.vue'
 import PitcherDetails from "../components/PitcherDetails.vue"
+import BatterDetails from "../components/BatterDetails.vue"
 import Table from '@/views/Table.vue'
 import Blog from '@/views/Blog.vue'
 import NotFound from '@/views/NotFound.vue'
@@ -38,6 +39,20 @@ const routes = [{
       };
     },
     component: PitcherDetails
+  },
+  {
+    path: "/batter/:id",
+    name: "BatterDetails",
+    props: (route) => {
+      const id = Number.parseInt(route.params.id)
+      if (Number.isNaN(id)) {
+        return 0
+      }
+      return {
+        id
+      };
+    },
+    component: BatterDetails
   },
   {
     path: '/articles',

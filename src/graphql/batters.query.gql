@@ -1,0 +1,37 @@
+query Batters {
+  batters {
+    name
+    team
+    war
+    adp
+    id
+    games
+    plate_appearances
+    at_bats
+    hits
+    doubles
+    triples
+    home_runs
+    runs
+    rbi
+    walks
+    strikeouts
+    hit_by_pitch
+    stolen_bases
+    caught_stealing
+    batting_average
+    on_base_percentage
+    slugging_percentage
+    on_base_plus_slugging
+    weighted_on_base_average
+    weighted_runs_created_plus
+    base_running
+    fielding_percentage
+    offensive_runs_above_average
+    defensive_runs_above_average
+    negative_one
+    negative_one_one
+    negative_one_two
+    negative_omit
+  }
+}
