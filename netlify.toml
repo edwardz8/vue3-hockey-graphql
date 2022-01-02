@@ -1,7 +1,2 @@
 [build.environment]
   NODE_VERSION="16.13.1"
-
-[[redirects]]
-    from = "/*"
-    to = "/public/index.html"
-    status = 200
