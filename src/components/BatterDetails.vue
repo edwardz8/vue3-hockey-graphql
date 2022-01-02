@@ -12,7 +12,7 @@
               <i :class="matchTeamLogo(batter.team)"></i>
             </p>
             <p class="font-sans text-md leading-tight">
-              Walks: {{ batter.walks }} - Triples: {{ batter.triples }} 
+              Walks: {{ batter.walks }} - BsR: {{ batter.base_running }} 
             </p>
             <p class="font-sans text-md text-blue-700 leading-tight">
               Strikeouts: {{ batter.strikeouts }} 
@@ -21,7 +21,7 @@
               WAR: {{ batter.war }}
             </p>
             <p class="font-sans text-md leading-tight">
-              Hits: {{ batter.hits }} 
+              Hits: {{ batter.hits }} - Triples: {{ batter.triples }}
             </p>
           </div>
           <div>
@@ -149,21 +149,21 @@ export default {
     const batter = useResult(result, null, (data) => data.batter);
 
     const batterData = computed(() => ({
-      labels: ["RBI", "HR", "2B", "3B", "Runs", "SB"],
+      labels: ["RBI", "HR", "2B", "Runs", "SB"],
       datasets: [
         {
           data: [
             batter.value.rbi,
             batter.value.home_runs,
             batter.value.doubles,
-            batter.value.triples,
+            /* batter.value.triples, */
             batter.value.runs,
             batter.value.stolen_bases,
           ],
           backgroundColor: [
             "rgba(170, 170, 249, 100)",
             "rgba(69, 255, 181, 0.7)",
-            "rgba(0, 151, 19, 0.3)",
+            /* "rgba(0, 151, 19, 0.3)", */
             "rgba(600, 200, 19, 0.3)",
             "rgba(148, 187, 233, 0.8)",
             "rgba(255, 132, 132, 100)",

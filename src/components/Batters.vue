@@ -57,6 +57,42 @@
                   >
                     OPS
                   </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
+                  >
+                    AVG
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
+                  >
+                    RBI
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
+                  >
+                    RUNS
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
+                  >
+                    2B
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
+                  >
+                    3B
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-center text-xs font-medium text-gray-600 uppercase tracking-wider"
+                  >
+                    K
+                  </th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
@@ -99,6 +135,24 @@
                   </td>
                   <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                     {{ batter.on_base_plus_slugging }}
+                  </td>
+                  <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ batter.batting_average }}
+                  </td>
+                  <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ batter.rbi }}
+                  </td>
+                  <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ batter.runs }}
+                  </td>
+                  <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ batter.doubles }}
+                  </td>
+                  <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ batter.triples }}
+                  </td>
+                  <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ batter.strikeouts }}
                   </td>
                 </tr>
               </tbody>

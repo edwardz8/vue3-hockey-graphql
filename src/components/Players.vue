@@ -1,5 +1,14 @@
 <template>
   <div class="container mx-auto">
+      <!-- pagination -->
+        <!-- <div class="inline-flex mb-3">
+            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+              Prev
+            </button>
+            <button @click="loadMore" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+              Next
+            </button>
+        </div> -->
    <div class="relative text-gray-800 ml-4 mr-4 flex mb-2">
      <!-- <Search :search="searchQuery" @search="handleSearch" /> -->
      <input v-model="searchQuery" type="search" name="search" placeholder="Search   ⚾  player by name" class="h-10 px-5 pr-10 placeholder-gray-400 text-gray-600 relative bg-white rounded text-sm border border-gray-300 outline-none focus:outline-none w-full pl-10">
@@ -10,6 +19,7 @@
       </button>
     </div>
     <div class="flex flex-col">
+      <!-- table -->
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -159,8 +169,14 @@ import { watchEffect, computed, ref } from "vue";
 import matchTeamLogo from "../methods";
 
 export default {
-  setup() {
-    const { result, loading } = useQuery(pitchersQuery);
+  props: ['type'],
+  setup(props) {
+    const { result, loading, fetchMore } = useQuery(pitchersQuery, () => ({
+      type: props.type,
+      offset: 0,
+      limit: 10
+    }));
+
     const pitchers = useResult(result, [], (data) => data.pitchers);
     const searchQuery = ref('')
 
@@ -169,6 +185,25 @@ export default {
           pitcher => pitcher.name.toLowerCase().includes(searchQuery.value)
         )
     })
+
+    /* function loadMore() {
+      fetchMore({
+        variables: {
+          offset: result.pitchers.length
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return previousResult 
+
+          return {
+            ...previousResult,
+            pitchers: [
+              ...previousResult.pitchers,
+              ...fetchMoreResult.pitchers
+            ]
+          }
+        }
+      })
+    } */
 
     watchEffect(() => {
       console.log(pitchers.value);
